@@ -1,52 +1,82 @@
 "use client";
 
 import "./request.css";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import Categories from "./categories";
 
 export default function Request() {
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  const router = useRouter();
+  const toggleForm = () => {
+    router.push("/home");
+  };
+
+  const updateCategory = (selected: string) => {
+    setSelectedCategory(selected);
+  };
+
+  const createRequest = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+
+    const response = await fetch("http://localhost:5000/request/new_request", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(returnRequestBody(formData)),
+    });
+  };
+
+  const returnRequestBody = (data: FormData ) => {
+      const jsonData: any = {};
+      data.forEach((value, key) => {
+        jsonData[key] = value;
+      });
+
+      // TODO: Current user, need to define sessions
+      jsonData["id"] = 1;
+
+      return jsonData
+  };
 
   return (
     <div className="content-container">
       <h1>POLI PQRS</h1>
       <p>SOLICITUD</p>
-      <form action="procesarFormulario.php" method="POST" id="requestForm">
+      <form onSubmit={createRequest} id="requestForm">
         <div className="form-fields">
           <label htmlFor="category">Categoria</label>
-          <Categories />
-        </div>
-
-        <div className="form-fields">
-          <label htmlFor="nombre">NOMBRE</label>
-          <input type="text" id="nombre" name="nombre" autoComplete="off" />
+          <Categories setCategory={updateCategory} />
         </div>
         <div className="form-fields">
           <label htmlFor="documento">DOCUMENTO DE IDENTIDAD</label>
           <input
             type="text"
             id="documento"
-            name="documento"
+            name="documentId"
             autoComplete="off"
           />
-        </div>
-        <div className="form-fields">
-          <label htmlFor="email">EMAIL INSTITUCIONAL</label>
-          <input type="email" id="email" name="email" autoComplete="off" />
         </div>
         <div className="form-fields">
           <label htmlFor="comentarios">COMENTARIOS</label>
           <textarea
             id="comentarios"
-            name="comentarios"
+            name="summary"
             rows={4}
             autoComplete="off"
           ></textarea>
         </div>
 
-        <button id="enviarSolicitudBtn">Enviar Solicitud</button>
+        <button id="enviarSolicitudBtn" type="submit">
+          Enviar Solicitud
+        </button>
       </form>
-      <a href="index.html" className="home-button">
+      <button onClick={toggleForm} className="home-button">
         Home
-      </a>
+      </button>
     </div>
   );
 }
