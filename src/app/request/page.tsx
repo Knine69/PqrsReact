@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Categories from "./categories";
 
+
 export default function Request() {
   const [selectedCategory, setSelectedCategory] = useState("");
-
   const router = useRouter();
   const toggleForm = () => {
     router.push("/home");
@@ -16,11 +16,11 @@ export default function Request() {
   const updateCategory = (selected: string) => {
     setSelectedCategory(selected);
   };
-
+  
   const createRequest = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-
+    
     const response = await fetch("http://localhost:5000/request/new_request", {
       method: "POST",
       headers: {
@@ -35,9 +35,6 @@ export default function Request() {
       data.forEach((value, key) => {
         jsonData[key] = value;
       });
-
-      // TODO: Current user, need to define sessions
-      jsonData["id"] = 1;
 
       return jsonData
   };
