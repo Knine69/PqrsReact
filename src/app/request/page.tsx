@@ -4,14 +4,22 @@ import "./request.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Categories from "./categories";
+import { useGlobalProp } from "../context/page";
 
 
 export default function Request() {
   const [selectedCategory, setSelectedCategory] = useState("");
+  const { setJwt } = useGlobalProp();
   const router = useRouter();
   const toggleForm = () => {
-    router.push("/home");
+    tokenCleanUp();
+    router.push("/login");
   };
+  
+  const tokenCleanUp = () => {
+    localStorage.removeItem("sessionToken");
+    setJwt("");
+  }
 
   const updateCategory = (selected: string) => {
     setSelectedCategory(selected);
@@ -40,7 +48,7 @@ export default function Request() {
   };
 
   return (
-    <div className="content-container">
+    <div className="request-container">
       <h1>POLI PQRS</h1>
       <p>SOLICITUD</p>
       <form onSubmit={createRequest} id="requestForm">
@@ -72,7 +80,7 @@ export default function Request() {
         </button>
       </form>
       <button onClick={toggleForm} className="home-button">
-        Home
+        Logout
       </button>
     </div>
   );
