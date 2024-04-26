@@ -2,45 +2,42 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useGlobalProp } from "../context/page";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
+import ContextValidator from "../context/utils";
 
 const Categories = ({ setCategory }: { setCategory: any }) => {
   const { jwt } = useGlobalProp();
   const router = useRouter();
   const [categories, setCategories] = useState([]);
   const category_default = "Categoría";
+  const { validateTokenSession, returnAuthHeaders } = ContextValidator();
   
   const loadCategoryFetch = useCallback(async () => {
-    const token = jwt || localStorage.getItem("sessionToken");
-    if (!token) {
-      alert("You are not authenticated");
-      router.push("/home");
-    } else {
+    const token = validateTokenSession();
+    if (token) {
       try {
         const { documentId }: { documentId: string } = jwtDecode(token);
         const response_category = await fetch(
           "http://localhost:5000/category/",
           {
             method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": token,
-              "documentId": documentId,
-            },
+            headers: returnAuthHeaders(documentId, token),
           }
         );
 
-        if (response_category.ok) {
-          const categoriesData = await response_category.json();
-          setCategories(categoriesData);
+        const data = await response_category.json();
+        if (!data.ERROR) {
+          setCategories(data);
         } else {
           console.error(
             "Failed to fetch categories:",
-            response_category.statusText
+            data.ERROR
           );
         }
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
+    } else {
+      router.push("/login")
     }
   }, [jwt]);
   
