@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { GlobalPropProvider } from "./context/page";
+import { ReactElement, ReactNode } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
+
+type RootLayoutProps = {
+  children: ReactElement;
+};
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -10,12 +16,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: RootLayoutProps) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <GlobalPropProvider>{children}</GlobalPropProvider>
+      </body>
     </html>
   );
 }
