@@ -1,0 +1,50 @@
+body {
+    background-image: url('../../../../public/IMAGES/poli-desde-el-cielo.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+}
+
+.request-list {
+    display: block;
+    background-color: white;
+    text-align: left;
+    color: black;
+    border-radius: 8px;
+    margin:  5px;
+}
+
+.list-container {
+    position: absolute;
+    top: 50%;
+    left: 85%;
+    transform: translate(-50%, -50%);
+    color: #333;
+    z-index: 2;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+    color: yellow;
+    text-align: center;
+}
+
+.request-list p{
+    margin-left: 10px;
+    margin-bottom: -10px;
+    padding-top: 3px;
+}
+
+.request-list h4{
+    padding-top: 3px;
+    padding-left: 3px;
+    margin-bottom: -10px;
+}

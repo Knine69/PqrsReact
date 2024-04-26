@@ -27,15 +27,17 @@ label {
 }
 
 
-.content-container {
+.request-container {
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 25%;
     transform: translate(-50%, -50%);
     text-align: center;
     color: #333;
     z-index: 2;
-    padding: 20px;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-bottom: 1%;
     border-radius: 20px;
     background-color: rgba(0, 0, 0, 0.8); /* Opacidad */
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
