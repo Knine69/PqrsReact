@@ -11,6 +11,27 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.login-form {
+    margin-top: 5%;
+    display: block;
+    color: #fff;
+}
+
+.login-form  label{
+    display: block;
+    position: relative;
+    margin-left: 4%;
+    margin-top: 10%;
+}
+
+.login-form  input{
+    position: relative;
+    margin-top: 5%;
+    padding: 0.2rem;
+    border-radius: 10px;
+}
+
+
 /* Estilos del recuadro central */
 .content-container {
     position: absolute;
@@ -20,7 +41,7 @@ body {
     text-align: center;
     color: #333;
     z-index: 2;
-    padding: 20px;
+    padding: 50px;
     border-radius: 20px;
     background-color: rgba(0, 0, 0, 0.8); /* Opacidad */
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
@@ -34,7 +55,7 @@ h1, p {
 /* Estilos del botón de enviar solicitud */
 .select-button {
     padding: 10px 20px;
-    margin: 10px;
+    margin-top: 25px;
     background-color: #4caf50;
     color: #fff;
     border: none;
