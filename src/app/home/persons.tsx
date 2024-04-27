@@ -1,0 +1,59 @@
+"use client";
+import "./styles/persons-list.css";
+import { useRouter } from "next/navigation";
+import { useGlobalProp } from "../context/page";
+import { useCallback, useEffect, useState } from "react";
+import ContextValidator from "../context/utils";
+import { jwtDecode } from "jwt-decode";
+
+const People = () => {
+  const { jwt } = useGlobalProp();
+  const router = useRouter();
+  const [person, setPerson] = useState([]);
+  const [sessionRole, setSessionRole] = useState("")
+  const { validateTokenSession, returnAuthHeaders } = ContextValidator();
+
+  const loadPersonsFetch = useCallback(async () => {
+    const token = validateTokenSession();
+    if (token) {
+      try {
+        const { documentId, role }: { documentId: string, role: string } = jwtDecode(token);
+        console.log("Role is: ", role)
+        setSessionRole(role);
+        const response_category = await fetch("http://localhost:5000/person/", {
+          method: "GET",
+          headers: returnAuthHeaders(documentId, token),
+        });
+
+        const data = await response_category.json();
+        if (!data.ERROR) {
+          setPerson(data);
+        } else {
+          console.error("Failed to fetch people:", data.ERROR);
+        }
+      } catch (error) {
+        console.error("Error fetching people:", error);
+      }
+    } else {
+      router.push("/login");
+    }
+  }, [jwt]);
+
+  useEffect(() => {
+    loadPersonsFetch();
+  }, [loadPersonsFetch]);
+
+  return (
+    <div className="person-container">
+      <h2>Person List</h2>
+      {person.length > 0  && sessionRole === "Admin" ? (person.map((item, index) => (
+        <div className="request-list" key={index}>
+          <h4>{item["email"]}</h4>
+          <p>{item["name"]}</p>
+        </div>
+      ))) : (<><p>This is nothing</p></>)}
+    </div>
+  );
+};
+
+export default People;
