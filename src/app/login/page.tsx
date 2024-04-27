@@ -4,6 +4,7 @@ import "./login.css";
 import { useRouter } from "next/navigation";
 import {  useEffect, useState } from "react";
 import { useGlobalProp } from "../context/page";
+import ContextValidator from "../context/utils";
 
 export default function Page() {
   const router = useRouter();
@@ -11,6 +12,7 @@ export default function Page() {
   const [password, setPassword] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
   const { jwt, setJwt } = useGlobalProp();
+  const { encryptData } = ContextValidator();
 
   useEffect(() => {
     if(jwt !== "" && authenticated){
@@ -31,14 +33,18 @@ export default function Page() {
     try {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
+      const data = returnRequestBody(formData);
+      data.password = encryptData(password);
       const response = await fetch("http://localhost:5000/login/auth", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(returnRequestBody(formData)),
+        body: JSON.stringify(data),
       });
+
       const { sessionToken, validSession, description }: { sessionToken: string, validSession: boolean, description: string } = await response.json()
+
       if(validSession){
         setJwt(sessionToken)
         setAuthenticated(validSession)
