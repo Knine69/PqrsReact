@@ -1,5 +1,5 @@
 "use client";
-import "./styles/request-list.css"
+import "./styles/request-list.css";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { useGlobalProp } from "../context/page";
@@ -8,6 +8,7 @@ import ContextValidator from "../context/utils";
 
 const RequestList = () => {
   const [requests, setRequests] = useState([]);
+  const [sessionRole, setSessionRole] = useState("");
   const { jwt } = useGlobalProp();
   const router = useRouter();
   const { validateTokenSession, returnAuthHeaders } = ContextValidator();
@@ -16,7 +17,8 @@ const RequestList = () => {
     const token = validateTokenSession();
     if (token) {
       try {
-        const { documentId }: { documentId: string } = jwtDecode(token);
+        const { documentId, role }: { documentId: string, role: string } = jwtDecode(token);
+        setSessionRole(role);
         const response_requests = await fetch(
           "http://localhost:5000/request/",
           {
@@ -24,25 +26,22 @@ const RequestList = () => {
             headers: returnAuthHeaders(documentId, token),
           }
         );
-        
+
         const data = await response_requests.json();
         if (!data.ERROR) {
           setRequests(data);
         } else {
-          console.error(
-            "Failed to fetch categories:",
-            data.ERROR
-          );
+          console.error("Failed to fetch requests:", data.ERROR);
 
-          if(data.ERROR.toLowerCase().includes("expired")){
+          if (data.ERROR.toLowerCase().includes("expired")) {
             router.push("/login");
           }
         }
       } catch (error) {
         console.error("Something went wrong: ", error);
       }
-    } else{
-      router.push("/login")
+    } else {
+      router.push("/login");
     }
   }, [jwt]);
 
@@ -50,17 +49,27 @@ const RequestList = () => {
     loadRequests();
   }, [loadRequests]);
 
-
-  return <div className="list-container">
+  return (
+    <div className="list-container">
       <h2>Request List</h2>
-      {requests.map((item, index) => (
-        <div className="request-list" key={index}>
-          <h4>{item["Summary"]}</h4>
-          <p>{item["Category"]}</p>
-          <p>Solver: {item["Solver"]}</p>
-        </div>
-      ))}
-    </div>;
+      {sessionRole === "Admin" ? (
+        requests.map((item, index) => (
+          <div className="request-list" key={index}>
+            <h4>{item["summary"]}</h4>
+            <p>{item["generated_at"]}</p>
+          </div>
+        ))
+      ) : (
+        requests.map((item, index) => (
+          <div className="request-list" key={index}>
+            <h4>{item["Summary"]}</h4>
+            <p>{item["Category"]}</p>
+            <p>Solver: {item["Solver"]}</p>
+          </div>
+        ))
+      )}
+    </div>
+  );
 };
 
 export default RequestList;

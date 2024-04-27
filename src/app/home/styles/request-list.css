@@ -24,6 +24,9 @@ body {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%);
+    overflow-y: auto;
+    height: 400px;
+    overflow-x: auto;
     color: #333;
     z-index: 2;
     padding: 20px;
