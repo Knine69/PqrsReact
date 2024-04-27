@@ -5,12 +5,15 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Categories from "./categories";
 import { useGlobalProp } from "../context/page";
+import ContextValidator from "../context/utils";
+import { jwtDecode } from "jwt-decode";
 
 
 export default function Request() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const { setJwt } = useGlobalProp();
   const router = useRouter();
+  const { returnAuthHeaders, validateTokenSession } = ContextValidator();
   const toggleForm = () => {
     tokenCleanUp();
     router.push("/login");
@@ -27,15 +30,26 @@ export default function Request() {
   
   const createRequest = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    
-    const response = await fetch("http://localhost:5000/request/new_request", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(returnRequestBody(formData)),
-    });
+    const token = validateTokenSession();
+    if (token) {
+      const formData = new FormData(event.currentTarget);
+      const { documentId }: { documentId: string } = jwtDecode(token);
+      const response = await fetch("http://localhost:5000/request/new_request", {
+        method: "POST",
+        headers: returnAuthHeaders(documentId, token),
+        body: JSON.stringify(returnRequestBody(formData)),
+      });
+
+      const data = await response.json();
+        if (!data.ERROR) {
+          console.log("Created successfully")
+        } else {
+          console.error(
+            "Failed to fetch categories:",
+            data.ERROR
+          );
+        }
+    }
   };
 
   const returnRequestBody = (data: FormData ) => {
