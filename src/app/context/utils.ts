@@ -45,9 +45,21 @@ const ContextValidator = () => {
     return encrypt;
   };
 
+  const returnRequestBody = (data: FormData ) => {
+    const jsonData: any = {};
+    data.forEach((value, key) => {
+      if(value !== ""){
+        jsonData[key] = value;
+      }
+    });
+
+    return jsonData
+};
+
   return {
     validateTokenSession,
     returnAuthHeaders,
+    returnRequestBody,
     encryptData,
   };
 };
