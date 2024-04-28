@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import ContextValidator from "../context/utils";
 import { jwtDecode } from "jwt-decode";
 
-const People = () => {
+const People = ({ viewRequest }: { viewRequest: (item: any) => void }) => {
   const { jwt } = useGlobalProp();
   const router = useRouter();
   const [person, setPerson] = useState([]);
@@ -18,7 +18,6 @@ const People = () => {
     if (token) {
       try {
         const { documentId, role }: { documentId: string, role: string } = jwtDecode(token);
-        console.log("Role is: ", role)
         setSessionRole(role);
         const response_category = await fetch("http://localhost:5000/person/", {
           method: "GET",
@@ -43,11 +42,19 @@ const People = () => {
     loadPersonsFetch();
   }, [loadPersonsFetch]);
 
+  const toggleView = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    item: any
+  ) => {
+    viewRequest(person.filter((x) => x["person_id"] === item["person_id"]));
+  };
+
+
   return (
     <div className="person-container">
       <h2>Person List</h2>
       {person.length > 0  && sessionRole === "Admin" ? (person.map((item, index) => (
-        <div className="request-list" key={index}>
+        <div className="request-list" key={index} onClick={(event) => toggleView(event, item)}>
           <h4>{item["email"]}</h4>
           <p>{item["name"]}</p>
         </div>
