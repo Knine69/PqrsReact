@@ -9,7 +9,7 @@ import ContextValidator from "../context/utils";
 import { jwtDecode } from "jwt-decode";
 
 
-export default function Request() {
+export default function RequestMaker() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const { setJwt } = useGlobalProp();
   const router = useRouter();
