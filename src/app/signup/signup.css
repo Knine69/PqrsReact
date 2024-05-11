@@ -1,0 +1,82 @@
+/* Estilos del cuerpo y el fondo */
+body {
+    background-image: url('../../../public/IMAGES/poli-desde-el-cielo.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+}
+
+.login-form {
+    margin-top: 5%;
+    display: block;
+    color: #fff;
+}
+
+.login-form  label{
+    display: block;
+    position: relative;
+    margin-left: 4%;
+    margin-top: 4%;
+}
+
+.login-form  input{
+    position: relative;
+    padding: 0.2rem;
+    border-radius: 10px;
+}
+
+
+/* Estilos del recuadro central */
+.content-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #333;
+    z-index: 2;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.8); /* Opacidad */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+}
+
+h3, p {
+    color: #ffc107; /* Color amarillo */
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Estilos del botón de enviar solicitud */
+.select-button {
+    padding: 10px 20px;
+    margin-top: 25px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Roboto', sans-serif;
+}
+
+.select-button:hover {
+    background-color: #388e3c;
+}
+
+.errorInputValues {
+    border-color: red;
+}
+
+.inputValues {
+    border-color: #333;
+}
+
+.errorText {
+    color: red;
+    font-size: small;
+}
