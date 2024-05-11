@@ -68,3 +68,16 @@ h1, p {
 .select-button:hover {
     background-color: #388e3c;
 }
+
+.errorInputValues {
+    border-color: red;
+}
+
+.inputValues {
+    border-color: #333;
+}
+
+.errorText {
+    color: red;
+    font-size: small;
+}
