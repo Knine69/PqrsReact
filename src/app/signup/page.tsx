@@ -18,7 +18,7 @@ export default function SignUp() {
   const [department, setDepartment] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
-  
+
   const router = useRouter();
   const { encryptData } = ContextValidator();
 
@@ -57,11 +57,11 @@ export default function SignUp() {
     });
 
     const responseData = await response.json();
-      if (!responseData.ERROR) {
-        router.push("/login")
-      } else {
-        console.error("Failed to fetch positions:", data.ERROR);
-      }
+    if (!responseData.ERROR) {
+      router.push("/login");
+    } else {
+      console.error("Failed to fetch positions:", data.ERROR);
+    }
   };
 
   const returnRequestBody = (data: FormData) => {
@@ -147,6 +147,13 @@ export default function SignUp() {
         <div>
           <button type="submit" className="select-button">
             Sign Up
+          </button>
+
+          <button
+            className="goBackButton"
+            onClick={(event) => router.push("/login")}
+          >
+            Regresar
           </button>
         </div>
       </form>

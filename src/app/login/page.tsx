@@ -124,6 +124,7 @@ export default function Page() {
           Login
         </button>
       </form>
+      <button className="signUp" onClick={event => router.push('/signup')}>Sign Up</button>
     </div>
   );
 }
