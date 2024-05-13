@@ -51,14 +51,18 @@ const People = ({ viewRequest }: { viewRequest: (item: any) => void }) => {
 
 
   return (
-    <div className="person-container">
-      <h2>Person List</h2>
-      {person.length > 0  && sessionRole === "Admin" ? (person.map((item, index) => (
-        <div className="request-list" key={index} onClick={(event) => toggleView(event, item)}>
-          <h4>{item["email"]}</h4>
-          <p>{item["name"]}</p>
+    <div>
+      {sessionRole === "Admin" && 
+          <div className="person-container">
+          <h2>Person List</h2>
+          {person.length > 0  ? (person.map((item, index) => (
+            <div className="request-list" key={index} onClick={(event) => toggleView(event, item)}>
+              <h4>{item["email"]}</h4>
+              <p>{item["name"]}</p>
+            </div>
+          ))) : (<></>)}
         </div>
-      ))) : (<><p>This is nothing</p></>)}
+      }
     </div>
   );
 };
