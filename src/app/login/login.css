@@ -70,7 +70,7 @@ h1, p {
 }
 
 .errorInputValues {
-    border-color: red;
+    border-color: red !important;
 }
 
 .inputValues {
