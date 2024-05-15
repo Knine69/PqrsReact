@@ -38,10 +38,11 @@ export default function Page() {
       setErrorToggle(true);
       setInputClass("errorInputValues");
       return;
+    } else {
+      setErrorToggle(false);
+      setInputClass("inputValues");
     }
 
-    setErrorToggle(false);
-    setInputClass("inputValues");
     return;
   };
 
@@ -73,10 +74,11 @@ export default function Page() {
         localStorage.setItem("sessionToken", sessionToken);
       } else {
         alert(`Something went wrong: ${description}`);
+        toggleErrorStyles(true);
       }
     } catch (error) {
-      toggleErrorStyles(true);
       alert(`Something went wrong: ${error}`);
+      toggleErrorStyles(true);
     }
     setDocumentId("");
     setPassword("");
