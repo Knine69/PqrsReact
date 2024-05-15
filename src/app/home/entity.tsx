@@ -118,15 +118,14 @@ const Entity = ({
         <button type="submit" className="home-button" disabled={!isEditing}>
           Save changes
         </button>
+        <button type="button" onClick={editForm} className="home-button">
+          Edit request
+        </button>
+
+        <button type="button" onClick={toggleView} className="home-button">
+          Go back
+        </button>
       </form>
-
-      <button onClick={editForm} className="home-button">
-        Edit request
-      </button>
-
-      <button onClick={toggleView} className="home-button">
-        Go back
-      </button>
     </div>
   );
 };
