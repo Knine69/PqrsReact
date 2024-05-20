@@ -75,7 +75,7 @@ export default function SignUp() {
 
   return (
     <div className="content-container">
-      <h3>Crea tu usuario</h3>
+      <h3>Registro de Nuevo Usuario</h3>
       <form className="login-form" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Nombre:</label>
@@ -146,14 +146,14 @@ export default function SignUp() {
 
         <div>
           <button type="submit" className="select-button">
-            Sign Up
+            Registrarse
           </button>
 
           <button
             className="goBackButton"
             onClick={(event) => router.push("/login")}
           >
-            Regresar
+            Volver
           </button>
         </div>
       </form>

@@ -94,7 +94,7 @@ const Entity = ({
 
   return (
     <div className="single-entity-container">
-      <h2>Request</h2>
+      <h2>Solicitud</h2>
       <form id="requestForm" onSubmit={saveChanges}>
         <div>
           <div className="form-fields">
@@ -116,14 +116,14 @@ const Entity = ({
         </div>
 
         <button type="submit" className="home-button" disabled={!isEditing}>
-          Save changes
+          Guardar Cambios
         </button>
         <button type="button" onClick={editForm} className="home-button">
-          Edit request
+          Editar Solicitud
         </button>
 
         <button type="button" onClick={toggleView} className="home-button">
-          Go back
+          Regresar
         </button>
       </form>
     </div>

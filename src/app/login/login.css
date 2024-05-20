@@ -11,26 +11,49 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Fondo oscuro para mejorar la legibilidad */
+    z-index: 1;
+}
+
 .login-form {
-    margin-top: 5%;
+    position: relative;
+    z-index: 2;
     display: block;
     color: #fff;
 }
 
-.login-form  label{
+.login-form label {
     display: block;
-    position: relative;
     margin-left: 4%;
     margin-top: 10%;
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 
-.login-form  input{
-    position: relative;
-    margin-top: 5%;
-    padding: 0.2rem;
+.login-form input {
+    display: block;
+    width: 80%;
+    margin: 0.5rem auto;
+    padding: 0.5rem;
     border-radius: 10px;
+    border: 1px solid #ccc;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 1rem;
 }
 
+.login-form input:focus {
+    outline: none;
+    border-color: #ffc107;
+    background: rgba(255, 255, 255, 0.3);
+}
 
 /* Estilos del recuadro central */
 .content-container {
@@ -39,17 +62,21 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    color: #333;
+    color: #fff;
     z-index: 2;
     padding: 50px;
     border-radius: 20px;
     background-color: rgba(0, 0, 0, 0.8); /* Opacidad */
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 400px;
 }
 
 h1, p {
     color: #ffc107; /* Color amarillo */
     font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding-bottom: 10px;
 }
 
 /* Estilos del botón de enviar solicitud */
@@ -63,6 +90,8 @@ h1, p {
     cursor: pointer;
     transition: background-color 0.3s;
     font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    width: 80%;
 }
 
 .select-button:hover {
@@ -83,8 +112,8 @@ h1, p {
 }
 
 .signUp {
-    padding: 3px 5px;
-    margin-top: 5px;
+    padding: 10px 20px;
+    margin-top: 10px;
     color: #62e7bf;
     background-color: rgba(0, 0, 0, 0.6); 
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
@@ -93,4 +122,30 @@ h1, p {
     cursor: pointer;
     transition: background-color 0.3s;
     font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    width: 80%;
+}
+
+.signUp:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Ajustes adicionales */
+.login-form input, .select-button, .signUp {
+    transition: all 0.3s ease;
+}
+
+.login-form input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Iconos */
+.login-form input[type="text"]::before, .login-form input[type="password"]::before {
+    content: "\1F511"; /* Código del icono, puedes cambiarlo */
+    font-family: "Arial";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ccc;
 }

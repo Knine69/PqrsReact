@@ -85,12 +85,13 @@ export default function Page() {
   };
 
   return (
+    
     <div className="content-container">
       <h1>POLI PQRS</h1>
-      <p>Ingresa a tu cuenta</p>
+      <p>Bienvenido, ingresa con tus credenciales.</p>
       <form className="login-form" onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="documentId">Document ID</label>
+          <label htmlFor="documentId">Documento de Identidad</label>
           <input
             type="text"
             id="documentId"
@@ -107,7 +108,7 @@ export default function Page() {
         </div>
 
         <div>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Contraseña</label>
           <input
             type="password"
             id="password"
@@ -123,10 +124,10 @@ export default function Page() {
           </div>
         )}
         <button type="submit" className="select-button">
-          Login
+          INGRESAR
         </button>
       </form>
-      <button className="signUp" onClick={event => router.push('/signup')}>Sign Up</button>
+      <button className="signUp" onClick={event => router.push('/signup')}>Registrarse</button>
     </div>
   );
 }
